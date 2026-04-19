@@ -146,7 +146,11 @@ touch "$WORKDIR/logs/.gitkeep"
 # 6. README.md 생성 (기술 문서 뼈대)
 # -------------------------------------------------------
 title "5. README.md 생성 (기술 문서 뼈대)"
-cat > "$WORKDIR/README.md" << EOREADME
+if [ -f "$WORKDIR/README.md" ]; then
+  warn "README.md가 이미 존재하여 덮어쓰지 않습니다."
+  echo "  위치: $WORKDIR/README.md"
+else
+  cat > "$WORKDIR/README.md" << EOREADME
 # Dev Workstation 구축 과제
 
 ## 1. 프로젝트 개요
@@ -215,7 +219,8 @@ git config --list
 - 해결:
 EOREADME
 
-ok "README.md 생성 완료"
+  ok "README.md 생성 완료"
+fi
 
 # -------------------------------------------------------
 # 7. 첫 커밋
