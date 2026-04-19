@@ -7,12 +7,10 @@
 #   --step N        N번 스크립트부터 시작
 # =============================================================
 
-SKIP_COMPOSE=false
 START_STEP=1
 
 for arg in "$@"; do
   case $arg in
-    --skip-compose) SKIP_COMPOSE=true ;;
     --step) shift; START_STEP="$1" ;;
     --step=*) START_STEP="${arg#*=}" ;;
   esac
@@ -72,8 +70,6 @@ echo "  STEP 5: 커스텀 웹 서버 빌드"
 echo "  STEP 6: 바인드 마운트"
 echo "  STEP 7: 볼륨 영속성"
 echo "  STEP 8: Git/GitHub 설정"
-[ "$SKIP_COMPOSE" = false ] && echo "  STEP 9: Docker Compose (보너스)"
-echo ""
 
 if [ "$START_STEP" -le 8 ]; then
   echo -e "${YELLOW}Git 설정이 필요합니다. 환경변수를 미리 설정하세요:${NC}"
@@ -98,9 +94,6 @@ run_step 6 "06_bind_mount.sh"      "바인드 마운트"
 run_step 7 "07_volumes.sh"         "볼륨 영속성"
 run_step 8 "08_git_setup.sh"       "Git/GitHub 설정"
 
-if [ "$SKIP_COMPOSE" = false ]; then
-  run_step 9 "09_docker_compose.sh" "Docker Compose (보너스)"
-fi
 
 # ── 완료 요약 ────────────────────────────────────────────────
 END_TIME=$(date +%s)

@@ -34,7 +34,6 @@
 | [06_bind_mount.sh](06_bind_mount.sh) | 바인드 마운트 변경 반영 확인 |
 | [07_volumes.sh](07_volumes.sh) | Docker 볼륨 생성/재연결/영속성 검증 |
 | [08_git_setup.sh](08_git_setup.sh) | Git 전역 설정, 저장소 초기화, README 생성, 첫 커밋 안내 |
-| [09_docker_compose.sh](09_docker_compose.sh) | Docker Compose 단일/멀티 서비스, Redis 연동, 환경 변수 주입 |
 | [run_all.sh](run_all.sh) | 전체 단계 일괄 실행용 오케스트레이션 스크립트 |
 | [work_station/logs/](work_station/logs/) | 실습 로그 보관용 디렉토리 |
 
@@ -53,7 +52,6 @@
 - [x] Docker 볼륨 생성 및 삭제 후 데이터 유지 확인
 - [x] Git 사용자 정보/기본 브랜치 설정
 - [x] GitHub 연동 준비 및 저장소 초기화
-- [x] Docker Compose 단일/멀티 서비스 실습
 - [x] 트러블슈팅 2건 이상 정리
 
 ## 5. 터미널 조작 로그
@@ -241,25 +239,8 @@ git commit -m "feat: 개발 워크스테이션 초기 구성"
 - 개인키, 토큰, 비밀번호, 인증 코드는 문서에 남기지 않는다.
 - GitHub 연동은 HTTPS 또는 SSH 중 하나를 선택해 사용할 수 있다.
 
-## 14. Docker Compose 보너스
-아래 명령은 [09_docker_compose.sh](09_docker_compose.sh)에서 수행된다.
 
-```bash
-docker compose -f docker-compose.single.yml up -d --build
-docker compose -f docker-compose.single.yml ps
-docker compose -f docker-compose.single.yml logs --tail=5
-docker compose up -d --build
-docker compose ps
-docker compose logs --tail=10
-docker compose down
-```
-
-Compose에서 확인한 점:
-- 실행 명령이 YAML 문서로 고정되어 재현성이 높아진다.
-- 웹 서버와 Redis를 분리해 네트워크 통신을 확인할 수 있다.
-- 환경 변수와 볼륨을 한 파일에 모아 관리할 수 있다.
-
-## 15. 검증 방법과 결과 위치
+## 14. 검증 방법과 결과 위치
 | 검증 항목 | 확인 명령 | 결과 위치 |
 |----------|----------|----------|
 | 터미널 기본 조작 | `bash 01_terminal_basics.sh` | [01_terminal_basics.sh](01_terminal_basics.sh), [run_all.sh](run_all.sh) |
@@ -270,20 +251,27 @@ Compose에서 확인한 점:
 | 바인드 마운트 | `bash 06_bind_mount.sh` | [06_bind_mount.sh](06_bind_mount.sh) |
 | 볼륨 영속성 | `bash 07_volumes.sh` | [07_volumes.sh](07_volumes.sh) |
 | Git 설정 | `bash 08_git_setup.sh` | [08_git_setup.sh](08_git_setup.sh) |
-| Compose | `bash 09_docker_compose.sh` | [09_docker_compose.sh](09_docker_compose.sh) |
 
-## 16. 트러블슈팅 2건
+## 15. 트러블슈팅 2건
 ### 문제 1: Docker 데몬이 응답하지 않음
 - 문제: `docker info`가 실패하거나 서버 정보를 출력하지 못함
 - 원인 가설: Docker 엔진이 실행되지 않았거나, OrbStack/Docker Desktop이 꺼져 있음
 - 확인: `docker --version`은 나오지만 `docker info`가 실패하는지 확인
 - 해결/대안: OrbStack을 실행하거나 Docker Desktop을 켠 뒤 다시 `docker info` 실행
 
-### 문제 2: 바인드 마운트 경로가 기대와 다르게 동작함
-- 문제: 호스트 파일 수정이 컨테이너에 반영되지 않거나 마운트가 실패함
-- 원인 가설: 상대 경로를 잘못 사용했거나, 컨테이너가 읽기 전용/절대 경로 기준으로 접근해야 함
-- 확인: `realpath`로 실제 호스트 절대 경로를 출력하고 `docker run -v ...` 구성을 점검
-- 해결/대안: 절대 경로를 사용하고, 개발용은 `:ro`를 붙여 안전하게 연결한 뒤 `curl`로 즉시 반영 여부를 검증
+### 문제 2: `sudo cd`가 동작하지 않음
+- 문제: `sudo cd /some/path`를 실행해도 현재 터미널 위치가 바뀌지 않음
+- 원인 가설: `cd`는 외부 실행파일이 아니라 현재 쉘 상태를 바꾸는 built-in 명령이므로, 별도 프로세스로 실행되면 부모 쉘에 반영되지 않음
+- 확인:
+	- `type cd` 실행 시 `cd is a shell builtin`으로 표시됨
+	- `sudo bash -c 'cd /root && pwd'`는 `/root`를 출력하지만, 명령 종료 후 원래 쉘의 `pwd`는 변하지 않음
+- 해결/대안:
+	- 현재 쉘 위치를 바꾸려면 `cd`를 직접 실행
+	- 루트 작업이 필요하면 `sudo -i`로 루트 쉘에 진입 후 `cd` 실행
+	- 환경 변수 스크립트([set_env.sh](set_env.sh))는 `./set_env.sh`가 아니라 `source ./set_env.sh`로 실행해야 현재 쉘에 반영됨
+
+
+
 
 ## 17. 제출 시 주의사항
 - 스크린샷이나 로그에 토큰, 비밀번호, SSH 개인키가 보이면 제거한다.
@@ -297,10 +285,5 @@ Compose에서 확인한 점:
 bash run_all.sh
 ```
 
-보너스 Compose를 제외하려면:
-
-```bash
-bash run_all.sh --skip-compose
-```
 
 > 참고: 각 단계 스크립트는 `~/dev-workstation/` 아래에 실습 산출물과 로그를 생성하도록 설계되어 있다.
