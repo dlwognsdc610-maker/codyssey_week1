@@ -1,0 +1,37 @@
+=== 바인드 마운트 실습 로그 ===
+일시: 2026. 04. 19. (일) 16:14:32 KST
+
+호스트 마운트 경로: /home/ljh/dev-workstation/bind_site
+
+--- 변경 후 호스트 파일 목록 ---
+total 12
+drwxrwxr-x 2 ljh ljh 4096  4월 19 13:32 .
+drwxrwxr-x 8 ljh ljh 4096  4월 19 15:26 ..
+-rw-rw-r-- 1 ljh ljh  990  4월 19 16:14 index.html
+
+--- 최종 index.html ---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>바인드 마운트 테스트</title>
+  <style>
+    body { font-family: system-ui; background: #0d1117; color: #eee;
+           display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #161b22; border-radius: 12px; padding: 40px; text-align: center;
+            border: 1px solid #30a46c; }
+    h1 { color: #30a46c; font-size: 2rem; }
+    .version { background: #30a46c; color: #fff; padding: 4px 12px;
+                border-radius: 99px; font-size: 12px; margin-top: 12px; display: inline-block; }
+    .changed { color: #f59e0b; font-size: 0.9rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>바인드 마운트 - 변경 후!</h1>
+    <p>호스트에서 파일을 수정했습니다</p>
+    <p class="changed">컨테이너 재시작 없이 반영됨!</p>
+    <span class="version">VERSION 2.0 (UPDATED)</span>
+  </div>
+</body>
+</html>

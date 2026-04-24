@@ -1,0 +1,9 @@
+=== Docker 볼륨 영속성 검증 로그 ===
+일시: 2026. 04. 19. (일) 16:14:32 KST
+
+볼륨명: workstation-data
+
+--- docker volume ls ---
+
+--- docker volume inspect ---
+[]

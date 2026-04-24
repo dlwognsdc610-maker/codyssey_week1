@@ -1,0 +1,7 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+time="2026-04-24T16:09:16+09:00" level=error msg="Can't add file /home/ljh/dev-workstation/webapp/Dockerfile to tar: io: read/write on closed pipe"
+time="2026-04-24T16:09:16+09:00" level=error msg="Can't close tar writer: io: read/write on closed pipe"
+permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.50/build?dockerfile=Dockerfile&t=my-web%3A1.0&version=1": dial unix /var/run/docker.sock: connect: permission denied
