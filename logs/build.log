@@ -2,6 +2,30 @@ DEPRECATED: The legacy builder is deprecated and will be removed in a future rel
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
 
-time="2026-04-24T16:09:16+09:00" level=error msg="Can't add file /home/ljh/dev-workstation/webapp/Dockerfile to tar: io: read/write on closed pipe"
-time="2026-04-24T16:09:16+09:00" level=error msg="Can't close tar writer: io: read/write on closed pipe"
-permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.50/build?dockerfile=Dockerfile&t=my-web%3A1.0&version=1": dial unix /var/run/docker.sock: connect: permission denied
+Sending build context to Docker daemon  9.728kB
+Step 1/8 : FROM nginx:alpine
+ ---> 812d47f806db
+Step 2/8 : LABEL org.opencontainers.image.title="dev-workstation-web"       org.opencontainers.image.description="커스텀 Nginx 웹 서버"       org.opencontainers.image.version="1.0.0"
+ ---> Using cache
+ ---> 146abeed535c
+Step 3/8 : ENV APP_ENV=dev     APP_NAME="Dev Workstation"     NGINX_PORT=80
+ ---> Using cache
+ ---> 214cc5f7ed91
+Step 4/8 : COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+ ---> 8efba4b17690
+Step 5/8 : COPY site/ /usr/share/nginx/html/
+ ---> ae88eb3957d5
+Step 6/8 : EXPOSE 80
+ ---> Running in 5a667a92f9d6
+ ---> Removed intermediate container 5a667a92f9d6
+ ---> 59b085d0c008
+Step 7/8 : HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3   CMD wget -qO- http://localhost/health || exit 1
+ ---> Running in 65b920251262
+ ---> Removed intermediate container 65b920251262
+ ---> b1c997f8ccc2
+Step 8/8 : CMD ["nginx", "-g", "daemon off;"]
+ ---> Running in b20283ebde75
+ ---> Removed intermediate container b20283ebde75
+ ---> db59c963e9f9
+Successfully built db59c963e9f9
+Successfully tagged my-web:1.0

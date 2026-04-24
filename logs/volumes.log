@@ -1,9 +1,22 @@
 === Docker 볼륨 영속성 검증 로그 ===
-일시: 2026. 04. 19. (일) 16:14:32 KST
+일시: 2026. 04. 24. (금) 16:45:37 KST
 
 볼륨명: workstation-data
 
 --- docker volume ls ---
+DRIVER    VOLUME NAME
+local     eaf6b9a1ed742fd2a9a208cac61140b2c680626104e07331e745e3376b5db4cd
+local     workstation-data
 
 --- docker volume inspect ---
-[]
+[
+    {
+        "CreatedAt": "2026-04-24T16:45:36+09:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/workstation-data/_data",
+        "Name": "workstation-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]

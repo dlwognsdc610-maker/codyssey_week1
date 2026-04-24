@@ -1,6 +1,21 @@
 === Docker 기본 실행 로그 ===
-일시: 2026. 04. 24. (금) 16:09:16 KST
+일시: 2026. 04. 24. (금) 16:45:13 KST
 
 --- docker images ---
+REPOSITORY        TAG       IMAGE ID       CREATED       SIZE
+my-web            1.0       dfd2e02cb463   5 days ago    62.2MB
+nginx             alpine    812d47f806db   8 days ago    62.2MB
+ubuntu            22.04     714d1a2f39e9   13 days ago   78.1MB
+hello-world       latest    e2ac70e7319a   4 weeks ago   10.1kB
+fathyb/carbonyl   latest    173e471b5251   3 years ago   274MB
 
 --- docker ps -a ---
+CONTAINER ID   IMAGE         COMMAND                   CREATED          STATUS                      PORTS                                     NAMES
+5722e6987d02   hello-world   "/hello"                  22 seconds ago   Exited (0) 21 seconds ago                                             naughty_hofstadter
+712530297cce   my-web:1.0    "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes (unhealthy)   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   my-web-8081
+ee0f16d33746   my-web:1.0    "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes (unhealthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   my-web-8080
+1aa0cdb217ce   hello-world   "/hello"                  11 minutes ago   Exited (0) 11 minutes ago                                             wizardly_tharp
+2bb656ca0b9f   hello-world   "/hello"                  35 minutes ago   Exited (0) 35 minutes ago                                             compassionate_dubinsky
+5304f1f5f949   hello-world   "/hello"                  5 days ago       Exited (0) 5 days ago                                                 sharp_tesla
+4efcc933260f   hello-world   "/hello"                  5 days ago       Exited (0) 5 days ago                                                 hungry_ellis
+e39c88f45427   hello-world   "/hello"                  5 days ago       Exited (0) 5 days ago                                                 friendly_curie

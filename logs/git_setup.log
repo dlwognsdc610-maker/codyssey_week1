@@ -1,15 +1,15 @@
 === Git 설정 로그 ===
-일시: 2026. 04. 19. (일) 16:14:32 KST
+일시: 2026. 04. 24. (금) 16:45:49 KST
 
 --- git --version ---
 git version 2.43.0
 
 --- git config --list ---
-user.email=https://github.com/dlwognsdc610-maker/codyssey_week1
-user.name=dlwognsdc610-maker
-credential.helper=store
+user.email=dev@example.com
+user.name=Dev User
 credential.https://github.com.helper=
 credential.https://github.com.helper=!/usr/bin/gh auth git-credential
+credential.https://github.com.helper=
 credential.https://gist.github.com.helper=
 credential.https://gist.github.com.helper=!/usr/bin/gh auth git-credential
 init.defaultbranch=main
@@ -22,10 +22,6 @@ core.bare=false
 core.logallrefupdates=true
 
 --- git log --oneline ---
-3bab2ea feat: 개발 워크스테이션 초기 구성
-e001e38 feat: 개발 워크스테이션 초기 구성
-9e7d25f feat: 개발 워크스테이션 초기 구성
-7f24e36 feat: 개발 워크스테이션 초기 구성
-cdc5e3c feat: 개발 워크스테이션 초기 구성
+eabba0b feat: 개발 워크스테이션 초기 구성
 
 --- git remote -v ---

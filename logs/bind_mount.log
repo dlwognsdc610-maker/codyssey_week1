@@ -1,13 +1,13 @@
 === 바인드 마운트 실습 로그 ===
-일시: 2026. 04. 19. (일) 16:14:32 KST
+일시: 2026. 04. 24. (금) 16:45:32 KST
 
 호스트 마운트 경로: /home/ljh/dev-workstation/bind_site
 
 --- 변경 후 호스트 파일 목록 ---
 total 12
-drwxrwxr-x 2 ljh ljh 4096  4월 19 13:32 .
-drwxrwxr-x 8 ljh ljh 4096  4월 19 15:26 ..
--rw-rw-r-- 1 ljh ljh  990  4월 19 16:14 index.html
+drwxrwxr-x 2 ljh docker 4096  4월 24 16:45 .
+drwxrwxr-x 6 ljh ljh    4096  4월 24 16:45 ..
+-rw-rw-r-- 1 ljh docker  990  4월 24 16:45 index.html
 
 --- 최종 index.html ---
 <!DOCTYPE html>
